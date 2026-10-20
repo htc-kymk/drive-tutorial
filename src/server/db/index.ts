@@ -1,7 +1,7 @@
-
+import { drizzle } from "drizzle-orm/singlestore";
 import { env } from "~/env";
 import { createPool, type Pool } from "mysql2";
-
+import * as schema from "./schema";
 /**
  * Cache the database connection in development. This avoids creating a new connection on every HMR
  * update.
@@ -26,3 +26,4 @@ if(env.NODE_ENV !== "production") globarForDb.conn = conn;
 conn.addListener("error", (err) => {
   console.error("Database connection error:", err); 
 });
+export const db = drizzle(conn, { schema });
