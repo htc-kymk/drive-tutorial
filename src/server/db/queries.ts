@@ -27,7 +27,7 @@ export const QUERIES = {
     return db    
       .select()
       .from(foldersSchema)
-      .where(eq(filesSchema.parent, folderId));},
+      .where(eq(foldersSchema.parent, folderId));},
      
   getFiles: async function (fileId: number){
     return db    
