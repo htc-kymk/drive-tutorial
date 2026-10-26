@@ -2,7 +2,7 @@
 
 import { ChevronRight } from "lucide-react"
 import { FileRow, FolderRow } from "./file-row"
-import type { files_table, folders_table } from "~/server/db/schema"
+import { files_table, folders_table } from "~/server/db/schema"
 import Link from "next/link"
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "~/components/uploadthing";
@@ -13,6 +13,8 @@ export default function DriveContents(props: {
   files: (typeof files_table.$inferSelect)[];
   folders: (typeof folders_table.$inferSelect)[];
   parents: (typeof folders_table.$inferSelect)[];
+
+  currentFolderId: number,
 }) {
 
   const navigate =useRouter();
@@ -72,6 +74,9 @@ export default function DriveContents(props: {
           endpoint= "imageUploader" 
           onClientUploadComplete={() => {
             navigate.refresh();}}
+
+          input = {{
+            folderId: props.currentFolderId,}}
         />
       </div>
     </div>
